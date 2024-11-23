@@ -5,8 +5,8 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
-[UpdateInGroup(typeof(LateSimulationSystemGroup))]
 [UpdateAfter(typeof(ResetTargetSystem))]
+[BurstCompile]
 partial struct LookAtTargetSystem : ISystem
 {
 
@@ -23,6 +23,7 @@ partial struct LookAtTargetSystem : ISystem
     }
 }
 
+[BurstCompile]
 [WithPresent(typeof(LookAtTarget))]
 public partial struct LookAtTargetJob : IJobEntity
 {

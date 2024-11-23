@@ -12,9 +12,6 @@ using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.Timeline;
 
-[UpdateInGroup(typeof(LateSimulationSystemGroup))]
-[UpdateAfter(typeof(ResetTargetSystem))]
-[UpdateBefore(typeof(ShootSystem))]
 partial struct FindTargetSystem : ISystem
 {
     private EntityQuery enemyQuery;
@@ -50,7 +47,6 @@ partial struct FindTargetSystem : ISystem
             deltaTime = SystemAPI.Time.DeltaTime,
         }.ScheduleParallel();
     }
-
 }
 
 [BurstCompile]

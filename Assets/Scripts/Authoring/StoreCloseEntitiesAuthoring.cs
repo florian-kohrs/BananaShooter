@@ -35,5 +35,6 @@ public struct FindCloseEntities : IComponentData
 public struct CloseEntity : IBufferElementData
 {
     public float3 entityPosition;
+    public UnitHealth health;
     public Entity closeEntity;
 }

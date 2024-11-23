@@ -3,7 +3,6 @@ using Unity.Burst;
 using Unity.Transforms;
 
 [UpdateInGroup(typeof(LateSimulationSystemGroup))]
-[UpdateAfter(typeof(FindTargetSystem))]
 partial struct DestroyDelayedSystem : ISystem
 {
 

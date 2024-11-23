@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
-[UpdateAfter(typeof(ShootSystem))]
-[UpdateInGroup(typeof(LateSimulationSystemGroup))]
+[UpdateInGroup(typeof(LateSimulationSystemGroup), OrderLast=true)]
 public partial struct DetectDeathSystem : ISystem
 {
 

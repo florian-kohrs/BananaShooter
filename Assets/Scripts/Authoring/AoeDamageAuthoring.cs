@@ -2,6 +2,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
+[UpdateAfter(typeof(FindCloseEntities))]
 class AoeDamageAuthoring : MonoBehaviour
 {
     public float radius;
@@ -13,12 +14,17 @@ class AoeDamageAuthoring : MonoBehaviour
     {
         public override void Bake(AoeDamageAuthoring authoring)
         {
-            AddComponent(GetEntity(TransformUsageFlags.None), new AoeDamage()
+            Entity e = GetEntity(TransformUsageFlags.Dynamic);
+            AddComponent(e, new AoeDamage()
             {
-                radius = authoring.radius,
                 damage = authoring.damage,
-                damageToFaction = authoring.damageToFaction,
             });
+            AddComponent(e, new FindCloseEntities()
+            {
+                targetFaction = authoring.damageToFaction,
+                range = authoring.radius,
+            });
+            AddBuffer<CloseEntity>(e);
         }
     }
 }
@@ -26,9 +32,5 @@ class AoeDamageAuthoring : MonoBehaviour
 
 public struct AoeDamage : IComponentData
 {
-    public float3 position;
-    public float radius;
-
-    public Faction damageToFaction;
     public int damage;
 }

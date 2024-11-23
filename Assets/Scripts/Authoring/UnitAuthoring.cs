@@ -11,7 +11,7 @@ class UnitAuthoring : MonoBehaviour
             Entity entity = GetEntity(TransformUsageFlags.Dynamic);
             AddComponent(entity, new Unit
             {
-                faction = (Faction)authoring.gameObject.layer,
+                faction = (Faction)(1<<authoring.gameObject.layer),
             });
         }
     }

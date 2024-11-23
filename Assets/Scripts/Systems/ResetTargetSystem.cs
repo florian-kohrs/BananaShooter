@@ -5,26 +5,18 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Transforms;
 
-[UpdateInGroup(typeof(LateSimulationSystemGroup))]
+[UpdateInGroup(typeof(SimulationSystemGroup), OrderFirst = true)]
 partial struct ResetTargetSystem : ISystem
 {
 
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        ResetTargetJob job = new ResetTargetJob() 
-        { 
+        ResetTargetJob job = new ResetTargetJob()
+        {
             LocalTransformLookup = SystemAPI.GetComponentLookup<LocalTransform>(true),
         };
         job.ScheduleParallel();
-        //foreach (RefRW<Target> target in SystemAPI.Query<RefRW<Target>>())
-        //{
-        //    if (target.ValueRO.target == Entity.Null)
-        //        continue;
-
-        //    if(!SystemAPI.Exists(target.ValueRO.target))
-        //        target.ValueRW.target = Entity.Null;
-        //}
     }
 
 

@@ -4,7 +4,6 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
-[UpdateInGroup(typeof(LateSimulationSystemGroup))]
 [UpdateAfter(typeof(ShootSystem))]
 partial struct MuzzleFlashSystem : ISystem
 {
@@ -31,8 +30,6 @@ partial struct MuzzleFlashSystem : ISystem
             float t = 1-math.clamp((muzzle.ValueRO.startTime + muzzle.ValueRO.timeToVanish - elapsed) / muzzle.ValueRO.timeToVanish, 0.0f, 1.0f);
             transform.ValueRW.Rotation = math.slerp(muzzle.ValueRO.startRotation, muzzle.ValueRO.endRotation, t);
         }
-
-
     }
 
 }

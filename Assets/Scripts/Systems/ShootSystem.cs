@@ -7,7 +7,6 @@ using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-[UpdateInGroup(typeof(LateSimulationSystemGroup))]
 [UpdateAfter(typeof(ResetTargetSystem))]
 partial struct ShootSystem : ISystem
 {
@@ -22,6 +21,7 @@ partial struct ShootSystem : ISystem
     }
 }
 
+[BurstCompile]
 public partial struct ShootJob : IJobEntity
 {
 

@@ -4,9 +4,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-[UpdateInGroup(typeof(LateSimulationSystemGroup))]
-[UpdateAfter(typeof(FindTargetSystem))]
-
+[UpdateAfter(typeof(ResetTargetSystem))]
 [BurstCompile]
 partial struct MoveToTargetSystem : ISystem
 {
