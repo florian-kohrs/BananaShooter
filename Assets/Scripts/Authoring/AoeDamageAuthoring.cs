@@ -24,6 +24,7 @@ class AoeDamageAuthoring : MonoBehaviour
                 targetFaction = authoring.damageToFaction,
                 range = authoring.radius,
             });
+            AddComponent(e, new Prefab());
             AddBuffer<CloseEntity>(e);
         }
     }

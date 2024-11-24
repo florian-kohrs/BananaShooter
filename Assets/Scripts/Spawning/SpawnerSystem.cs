@@ -13,7 +13,7 @@ public partial struct SpawnerSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        EntityCommandBuffer ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
+        EntityCommandBuffer ecb = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
         float elapsed = (float)SystemAPI.Time.ElapsedTime;
         SpawnerJob job = new SpawnerJob { ecb = ecb.AsParallelWriter(), elapsed = elapsed };
         job.ScheduleParallel();

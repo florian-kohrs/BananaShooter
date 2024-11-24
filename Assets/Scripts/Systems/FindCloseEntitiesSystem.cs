@@ -84,6 +84,7 @@ public partial struct FindCloseEntitiesJob : IJobEntity
         findTarget.timer -= deltaTime;
         if (findTarget.timer > 0)
             return;
+
         findTarget.timer = findTarget.timerMax;
 
         bool targetEnemies = findTarget.targetFaction == Faction.Enemy;

@@ -1,7 +1,6 @@
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Physics;
 
 [UpdateAfter(typeof(FindCloseEntitiesSystem))]
 partial struct ApplyAoeDamageSystem : ISystem

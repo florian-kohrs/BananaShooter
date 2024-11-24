@@ -1,3 +1,4 @@
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -30,7 +31,11 @@ public class ExplodeOnHit : MonoBehaviour
 
     protected void SpawnExplosionAt(float3 position)
     {
-        Entity e = manager.CreateEntity();
+
+        //Entity e = new EntityQueryBuilder(Allocator.Temp).WithAll<AoeDamage, Prefab>().Build(World.DefaultGameObjectInjectionWorld.EntityManager).GetSingletonEntity();
+        //World.DefaultGameObjectInjectionWorld.EntityManager.Instantiate(e);
+        manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        Entity e = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntity(typeof(LocalTransform), typeof(LocalToWorld));
         manager.AddComponentData(e, new AoeDamage()
         {
             damage = 5,
@@ -42,6 +47,13 @@ public class ExplodeOnHit : MonoBehaviour
         });
         manager.AddComponentData(e, LocalTransform.FromPosition(position));
         manager.AddBuffer<CloseEntity>(e);
+
+        //World.DefaultGameObjectInjectionWorld.EntityManager.Instantiate(e);
+        //World.DefaultGameObjectInjectionWorld.Update();
+
+
+
+        Debug.Log($"Spawned entity {e} at {position}");
     }
 
     public float3 GetPosition()
