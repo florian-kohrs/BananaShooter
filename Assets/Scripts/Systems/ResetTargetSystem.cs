@@ -6,6 +6,7 @@ using Unity.Jobs;
 using Unity.Transforms;
 
 [UpdateInGroup(typeof(SimulationSystemGroup), OrderFirst = true)]
+[UpdateAfter(typeof(BeginSimulationEntityCommandBufferSystem))]
 partial struct ResetTargetSystem : ISystem
 {
 

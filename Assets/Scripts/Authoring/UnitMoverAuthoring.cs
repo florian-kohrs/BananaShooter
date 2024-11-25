@@ -7,9 +7,6 @@ public class UnitMoverAuthoring : MonoBehaviour
 
     public float speed;
 
-    public float rotationSpeed;
-
-
     public class Baker : Baker<UnitMoverAuthoring>
     {
         public override void Bake(UnitMoverAuthoring authoring)
@@ -18,7 +15,6 @@ public class UnitMoverAuthoring : MonoBehaviour
             AddComponent(entity, new UnitMover 
             { 
                 speed = authoring.speed, 
-                rotationSpeed=authoring.rotationSpeed 
             });
         }
     }
@@ -29,8 +25,6 @@ public class UnitMoverAuthoring : MonoBehaviour
 
 public struct UnitMover : IComponentData
 {
-
-    public float rotationSpeed;
 
     public float speed;
 

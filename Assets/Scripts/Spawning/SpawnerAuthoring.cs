@@ -34,7 +34,6 @@ public struct OffsetSpawner : IComponentData
     public float3 SpawnPosition;
     public float NextSpawnTime;
     public float SpawnRate;
-
     public float maxSpawnDistance;
     public Unity.Mathematics.Random random;
 

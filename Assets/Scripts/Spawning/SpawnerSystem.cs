@@ -15,8 +15,10 @@ public partial struct SpawnerSystem : ISystem
     {
         EntityCommandBuffer ecb = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
         float elapsed = (float)SystemAPI.Time.ElapsedTime;
+        
         SpawnerJob job = new SpawnerJob { ecb = ecb.AsParallelWriter(), elapsed = elapsed };
         job.ScheduleParallel();
+
     }
 
 }
@@ -56,3 +58,4 @@ public partial struct SpawnerJob : IJobEntity
     }
 
 }
+
