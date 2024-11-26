@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7818491210895720509}
   - component: {fileID: 1692070798247353647}
   - component: {fileID: 8849653554991680394}
-  - component: {fileID: 2211734362877210483}
   m_Layer: 0
   m_Name: BaseProjectile
   m_TagString: Untagged
@@ -49,7 +48,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  rotationSpeed: 0
 --- !u!114 &1692070798247353647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,21 +72,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dc940d7b76403e4d911a7fcdd5eb14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2211734362877210483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1200753117993611415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 949b7744a976c604091e9d385ba82dd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0
-  damageToFaction: 128
-  damage: 0
 --- !u!1 &2250733831831694173
 GameObject:
   m_ObjectHideFlags: 0

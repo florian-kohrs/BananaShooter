@@ -12,7 +12,7 @@ class DeleteDelayedAuthoring : MonoBehaviour
         {
             AddComponent(GetEntity(TransformUsageFlags.Dynamic), new DestroyDelayed
             {
-                delay = authoring.delay,
+                timer = authoring.delay,
             });
         }
     }
@@ -22,5 +22,4 @@ class DeleteDelayedAuthoring : MonoBehaviour
 public struct DestroyDelayed : IComponentData
 {
     public float timer;
-    public float delay;
 }

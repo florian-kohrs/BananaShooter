@@ -95,7 +95,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5847331086701363398}
-  - component: {fileID: -6082271275688359160}
+  - component: {fileID: 4139588855519765065}
+  - component: {fileID: 7178522969936372634}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -119,7 +120,7 @@ Transform:
   - {fileID: 4523439306542076154}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6082271275688359160
+--- !u!114 &4139588855519765065
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,7 +129,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 6868443206644227975}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 515952f8c4c3b844b9bdc1fe3b1ef5b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 742ebdf29967f3944bce470197d44375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 1
+  totalTime: 0.333
+  maxScale: 8
+--- !u!114 &7178522969936372634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6868443206644227975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949b7744a976c604091e9d385ba82dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 8
+  damageToFaction: 128
+  damage: 15
+  damageCooldown: 999

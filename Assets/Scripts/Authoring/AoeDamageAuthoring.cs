@@ -9,6 +9,7 @@ class AoeDamageAuthoring : MonoBehaviour
 
     public Faction damageToFaction;
     public int damage;
+    public float damageCooldown;
 
     class AoeDamageAuthoringBaker : Baker<AoeDamageAuthoring>
     {
@@ -23,8 +24,8 @@ class AoeDamageAuthoring : MonoBehaviour
             {
                 targetFaction = authoring.damageToFaction,
                 range = authoring.radius,
+                timerMax = authoring.damageCooldown,
             });
-            AddComponent(e, new Prefab());
             AddBuffer<CloseEntity>(e);
         }
     }
