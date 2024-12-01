@@ -2,7 +2,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-[UpdateAfter(typeof(FindCloseEntities))]
+[UpdateAfter(typeof(FindTarget))]
 class AoeDamageAuthoring : MonoBehaviour
 {
     public float radius;
@@ -20,7 +20,7 @@ class AoeDamageAuthoring : MonoBehaviour
             {
                 damage = authoring.damage,
             });
-            AddComponent(e, new FindCloseEntities()
+            AddComponent(e, new FindTarget()
             {
                 targetFaction = authoring.damageToFaction,
                 range = authoring.radius,

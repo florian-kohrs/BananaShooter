@@ -10,14 +10,14 @@ public class EnemyMovement : MonoBehaviour
     private void Update()
     {
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        EntityQuery query = new EntityQueryBuilder(Allocator.Temp).WithAll<UnitMover>().WithPresent<Enemy>().Build(entityManager);
+        EntityQuery query = new EntityQueryBuilder(Allocator.Temp).WithAll<TargetPosition>().WithPresent<Enemy>().Build(entityManager);
 
-        NativeArray<UnitMover> moverArray = query.ToComponentDataArray<UnitMover>(Allocator.Temp);
+        NativeArray<TargetPosition> moverArray = query.ToComponentDataArray<TargetPosition>(Allocator.Temp);
         for (int i = 0; i < moverArray.Length; i++)
         {
-            UnitMover mover = moverArray[i];
-            mover.targetPosition = target.transform.position;
-            moverArray[i] = mover;
+            TargetPosition target = moverArray[i];
+            target.targetPosition = this.target.transform.position;
+            moverArray[i] = target;
         }
         query.CopyFromComponentDataArray(moverArray);
     }

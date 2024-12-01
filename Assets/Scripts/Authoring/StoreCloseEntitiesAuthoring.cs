@@ -14,7 +14,7 @@ public class StoreCloseEntitiesAuthoring : MonoBehaviour
         {
             Entity e = GetEntity(TransformUsageFlags.Dynamic);
             AddBuffer<CloseEntity>(e);
-            AddComponent(e, new FindCloseEntities
+            AddComponent(e, new FindTarget
             {
                 range = authoring.range,
                 targetFaction = authoring.targetFaction,
@@ -22,14 +22,6 @@ public class StoreCloseEntitiesAuthoring : MonoBehaviour
             });
         }
     }
-}
-
-public struct FindCloseEntities : IComponentData
-{
-    public Faction targetFaction;
-    public float range;
-    public float timer;
-    public float timerMax;
 }
 
 public struct CloseEntity : IBufferElementData

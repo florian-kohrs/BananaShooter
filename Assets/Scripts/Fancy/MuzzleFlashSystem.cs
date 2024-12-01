@@ -1,4 +1,6 @@
+using NUnit.Framework.Constraints;
 using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -11,25 +13,32 @@ partial struct MuzzleFlashSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        float dt = SystemAPI.Time.DeltaTime;
+        ComponentLookup<ShootWeapon> w = SystemAPI.GetComponentLookup<ShootWeapon>(true);
         float elapsed = (float)SystemAPI.Time.ElapsedTime;
-        foreach ((
-            RefRW<Muzzle> muzzle,
-            RefRW<LocalTransform> transform,
-            Entity entity)
-            in SystemAPI.Query<
-                RefRW<Muzzle>,
-                RefRW<LocalTransform>
-                >().WithEntityAccess())
-        {
-            Entity parent = SystemAPI.GetComponent<Parent>(entity).Value;
+        MuzzleFlashJob job = new MuzzleFlashJob { elapsed = elapsed, weaponLookup = w };
+        job.ScheduleParallel();
+    }
 
-            if (SystemAPI.GetComponent<ShootWeapon>(parent).onShootEvent.isTriggered)
-                muzzle.ValueRW.startTime = elapsed;
+}
 
-            float t = 1-math.clamp((muzzle.ValueRO.startTime + muzzle.ValueRO.timeToVanish - elapsed) / muzzle.ValueRO.timeToVanish, 0.0f, 1.0f);
-            transform.ValueRW.Rotation = math.slerp(muzzle.ValueRO.startRotation, muzzle.ValueRO.endRotation, t);
-        }
+[BurstCompile]
+public partial struct MuzzleFlashJob : IJobEntity
+{
+
+    [ReadOnly]
+    public float elapsed;
+
+    [ReadOnly]
+    [NativeDisableParallelForRestriction]
+    public ComponentLookup<ShootWeapon> weaponLookup;
+
+    public void Execute(ref LocalTransform transform, in Parent p, ref Muzzle muzzle)
+    {
+        if (weaponLookup[p.Value].onShootEvent.isTriggered)
+            muzzle.startTime = elapsed;
+
+        float t = 1 - math.clamp((muzzle.startTime + muzzle.timeToVanish - elapsed) / muzzle.timeToVanish, 0.0f, 1.0f);
+        transform.Rotation = math.slerp(muzzle.startRotation, muzzle.endRotation, t);
     }
 
 }

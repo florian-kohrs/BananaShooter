@@ -50,16 +50,16 @@ public partial struct ConvertIfReachedTargetJob : IJobEntity
 
     public EntityCommandBuffer.ParallelWriter ecb;
 
-    private void Execute(Entity e,in ConvertIfReachedTarget converter, in LocalTransform transform, in UnitMover mover, [ChunkIndexInQuery] int sortKey)
+    private void Execute(Entity e,in ConvertIfReachedTarget converter, in LocalTransform transform, in TargetPosition targetPos, [ChunkIndexInQuery] int sortKey)
     {
-        float sqrDist = math.distancesq(mover.targetPosition, transform.Position);
+        float sqrDist = math.distancesq(targetPos.targetPosition, transform.Position);
         float triggerDistanceSqr = 0.05f;
 
         if (sqrDist > triggerDistanceSqr)
             return;
 
         Entity newEntity = ecb.Instantiate(sortKey, converter.convertTo);
-        ecb.SetComponent(sortKey, newEntity, LocalTransform.FromPosition(mover.targetPosition));
+        ecb.SetComponent(sortKey, newEntity, LocalTransform.FromPosition(targetPos.targetPosition));
         ecb.DestroyEntity(sortKey, e);
     }
 

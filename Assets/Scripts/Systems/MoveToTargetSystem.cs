@@ -6,14 +6,14 @@ using Unity.Transforms;
 
 [UpdateAfter(typeof(ResetTargetSystem))]
 [BurstCompile]
-partial struct MoveToTargetSystem : ISystem
+partial struct UpdateTargetPositionSystem : ISystem
 {
 
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         ComponentLookup<LocalTransform> LocalTransformLookup = SystemAPI.GetComponentLookup<LocalTransform>(true);
-        MoveToTargetJob moveToTargetJob = new MoveToTargetJob() 
+        UpdateTargetPositionJob moveToTargetJob = new UpdateTargetPositionJob() 
         { 
             LocalTransformLookup = LocalTransformLookup 
         };
@@ -25,14 +25,14 @@ partial struct MoveToTargetSystem : ISystem
 
 
 [BurstCompile]
-public partial struct MoveToTargetJob : IJobEntity
+public partial struct UpdateTargetPositionJob : IJobEntity
 {
 
     [ReadOnly]
     [NativeDisableParallelForRestriction]
     public ComponentLookup<LocalTransform> LocalTransformLookup;
 
-    public void Execute(in Target target, ref UnitMover mover)
+    public void Execute(in Target target, ref TargetPosition mover)
     {
         if (target.target == Entity.Null)
             return;

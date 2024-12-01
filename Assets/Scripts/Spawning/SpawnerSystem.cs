@@ -48,7 +48,7 @@ public partial struct SpawnerJob : IJobEntity
         math.sincos(random, out double x, out double z);
         float3 newPosition = spawner.SpawnPosition + new float3((float)x * range, 0, (float)z * range);
 
-        ecb.SetComponent(sortKey, newEntity, LocalTransform.FromPosition(newPosition));
+        ecb.SetComponent(sortKey, newEntity, LocalTransform.FromPositionRotationScale(newPosition, quaternion.identity, spawner.scale));
 
         // LocalPosition.FromPosition returns a Transform initialized with the given position.
         //state.EntityManager.SetComponentData(newEntity, t);

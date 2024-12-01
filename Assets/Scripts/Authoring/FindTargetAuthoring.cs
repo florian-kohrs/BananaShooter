@@ -6,6 +6,7 @@ class FindTargetAuthoring : MonoBehaviour
     public float timerMax = 0.2f;
     public float range = 10;
     public Faction targetFaction;
+    public bool findTargetEnabled = true;
 
     class FindTargetAuthoringBaker : Baker<FindTargetAuthoring>
     {
@@ -19,12 +20,13 @@ class FindTargetAuthoring : MonoBehaviour
                 targetFaction = authoring.targetFaction,
                 timerMax = authoring.timerMax,
             });
+            SetComponentEnabled<FindTarget>(entity, authoring.findTargetEnabled);
         }
     }
 
 }
 
-public partial struct FindTarget : IComponentData
+public struct FindTarget : IComponentData, IEnableableComponent
 {
     public Faction targetFaction;
     public float range;

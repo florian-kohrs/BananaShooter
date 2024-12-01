@@ -7,6 +7,7 @@ class SpawnerAuthoring : MonoBehaviour
     public GameObject Prefab;
     public float SpawnRate;
     public float maxSpawnDistance;
+    public float scale = 2;
 
     class SpawnerBaker : Baker<SpawnerAuthoring>
     {
@@ -22,7 +23,8 @@ class SpawnerAuthoring : MonoBehaviour
                 NextSpawnTime = 0.0f,
                 SpawnRate = authoring.SpawnRate,
                 maxSpawnDistance = authoring.maxSpawnDistance,
-                random = new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(0, 9999999))
+                random = new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(0, 9999999)),
+                scale = authoring.scale
             });
         }
     }
@@ -34,6 +36,7 @@ public struct OffsetSpawner : IComponentData
     public float3 SpawnPosition;
     public float NextSpawnTime;
     public float SpawnRate;
+    public float scale;
     public float maxSpawnDistance;
     public Unity.Mathematics.Random random;
 

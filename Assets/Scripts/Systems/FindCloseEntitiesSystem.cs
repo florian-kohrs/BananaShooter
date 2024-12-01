@@ -5,12 +5,14 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
+[UpdateAfter(typeof(TransformSystemGroup))]
 public partial struct FindCloseEntitiesSystem : ISystem
 {
 
     private EntityQuery nonFriendlyQuery;
     private EntityQuery nonEnemyQuery;
 
+    [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
         nonFriendlyQuery = SystemAPI.QueryBuilder().WithAll<LocalTransform, UnitHealth>().WithAbsent<Friendly>().Build();
@@ -77,7 +79,7 @@ public partial struct FindCloseEntitiesJob : IJobEntity
     [ReadOnly]
     public NativeArray<LocalTransform> enemyPositions;
 
-    private void Execute(DynamicBuffer<CloseEntity> closeEntity, ref FindCloseEntities findTarget, in LocalToWorld localTransform)
+    private void Execute(DynamicBuffer<CloseEntity> closeEntity, ref FindTarget findTarget, in LocalTransform localTransform)
     {
         closeEntity.Clear();
 

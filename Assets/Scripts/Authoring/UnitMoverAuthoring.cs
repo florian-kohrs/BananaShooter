@@ -16,6 +16,7 @@ public class UnitMoverAuthoring : MonoBehaviour
             { 
                 speed = authoring.speed, 
             });
+
         }
     }
 
@@ -28,6 +29,5 @@ public struct UnitMover : IComponentData
 
     public float speed;
 
-    public float3 targetPosition;
 
 }

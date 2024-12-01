@@ -11,13 +11,13 @@ public class PlayerMovement : MonoBehaviour
     {
         float3 inputDir = GetInputDirection();
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        EntityQuery query = new EntityQueryBuilder(Allocator.Temp).WithAll<UnitMover, LocalTransform>().WithPresent<Friendly>().Build(entityManager);
+        EntityQuery query = new EntityQueryBuilder(Allocator.Temp).WithAll<TargetPosition, LocalTransform>().WithPresent<Friendly>().Build(entityManager);
 
         NativeArray<LocalTransform> positionArray = query.ToComponentDataArray<LocalTransform>(Allocator.Temp);
-        NativeArray<UnitMover> moverArray = query.ToComponentDataArray<UnitMover>(Allocator.Temp);
+        NativeArray<TargetPosition> moverArray = query.ToComponentDataArray<TargetPosition>(Allocator.Temp);
         for (int i = 0; i < moverArray.Length; i++)
         {
-            UnitMover mover = moverArray[i];
+            TargetPosition mover = moverArray[i];
             mover.targetPosition = positionArray[i].Position + inputDir;
             moverArray[i] = mover;
         }

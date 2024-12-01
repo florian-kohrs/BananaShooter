@@ -16,6 +16,7 @@ partial struct FindTargetSystem : ISystem
     private EntityQuery enemyQuery;
     private EntityQuery friendlyQuery;
 
+    [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
         enemyQuery = SystemAPI.QueryBuilder().WithAll<LocalTransform>().WithPresent<Enemy>().Build();
@@ -48,6 +49,8 @@ partial struct FindTargetSystem : ISystem
     }
 }
 
+
+[WithPresent(typeof(AttackClosest))]
 [BurstCompile]
 public partial struct FindClosestEnemyWithinRange : IJobEntity
 {
@@ -67,7 +70,7 @@ public partial struct FindClosestEnemyWithinRange : IJobEntity
     [ReadOnly]
     public NativeArray<LocalTransform> enemyPositions;
 
-    private void Execute(ref Target target, ref FindTarget findTarget, in LocalToWorld localTransform)
+    private void Execute(ref Target target, ref FindTarget findTarget, in LocalTransform localTransform)
     {
         findTarget.timer -= deltaTime;
         if (findTarget.timer > 0)

@@ -40,7 +40,7 @@ public class ExplodeOnHit : MonoBehaviour
         {
             damage = 5,
         });
-        manager.AddComponentData(e, new FindCloseEntities()
+        manager.AddComponentData(e, new FindTarget()
         {
             targetFaction = Faction.Enemy,
             range = 10,

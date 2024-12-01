@@ -52,11 +52,8 @@ public partial struct GrowShrinkJob : IJobEntity
     public void Execute(ref LocalTransform transform, ref GrowShrink growShrink)
     {
         growShrink.actualTime += deltaTime;
-        float t = 2 * growShrink.actualTime / growShrink.totalTime;
-        if(t>1)
-        {
-            t = 2 - t;
-        }
-        transform.Scale = t * growShrink.maxScale;
+        float t = growShrink.actualTime / growShrink.totalTime;
+        
+        transform.Scale = (1-t) * growShrink.maxScale;
     }
 }

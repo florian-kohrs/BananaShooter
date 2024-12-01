@@ -23,9 +23,9 @@ public partial struct UnitMoverJob : IJobEntity
 
     public float deltaTime;
 
-    public void Execute(ref LocalTransform localTransform, in UnitMover unitMover)
+    public void Execute(ref LocalTransform localTransform, in UnitMover unitMover, in TargetPosition position)
     {
-        float3 moveDirection = unitMover.targetPosition - localTransform.Position;
+        float3 moveDirection = position.targetPosition - localTransform.Position;
         if(math.lengthsq(moveDirection) == 0) 
         {
             return;
@@ -38,5 +38,18 @@ public partial struct UnitMoverJob : IJobEntity
         float3 frameMove = frameSpeed * math.normalize(moveDirection);
         //localTransform.Scale = math.sign(moveDirection.x);
         localTransform.Position += frameMove;
+    }
+}
+
+
+
+[WithPresent(typeof(JumpToTargetPos))]
+[BurstCompile]
+public partial struct GoToTargetJob : IJobEntity
+{
+
+    public void Execute(ref LocalTransform localTransform,  in TargetPosition position)
+    {
+        localTransform.Position = position.targetPosition;
     }
 }
