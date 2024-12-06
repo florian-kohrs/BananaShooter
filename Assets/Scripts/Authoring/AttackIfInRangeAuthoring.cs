@@ -2,18 +2,18 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-class ShootWeaponAuthoring : MonoBehaviour
+class AttackIfInRangeAuthoring : MonoBehaviour
 {
 
     public float attackCooldown = 0.5f;
     public float range = 10;
     public int damage = 1;
 
-    class ShootAttackAuthoringBaker : Baker<ShootWeaponAuthoring>
+    class AttackInRangeAuthoring : Baker<AttackIfInRangeAuthoring>
     {
-        public override void Bake(ShootWeaponAuthoring authoring)
+        public override void Bake(AttackIfInRangeAuthoring authoring)
         {
-            AddComponent(GetEntity(TransformUsageFlags.Dynamic), new ShootWeapon
+            AddComponent(GetEntity(TransformUsageFlags.Dynamic), new AttackIfInRange
             {
                 attackCooldown = authoring.attackCooldown,
                 damage = authoring.damage,
@@ -24,19 +24,18 @@ class ShootWeaponAuthoring : MonoBehaviour
 
 }
 
-public struct ShootWeapon : IComponentData
+public struct AttackIfInRange : IComponentData
 {
     public float range;
     public int damage;
 
     public float attackCooldown;
-    public float nextShootTime;
+    public float nextAttackTime;
 
-    public OnShootEvent onShootEvent;
+    public OnAttackEvent onAttackEvent;
 
-    public struct OnShootEvent
+    public struct OnAttackEvent
     {
-        public float3 position;
-        public bool isTriggered;
+        public bool attackTriggered;
     }
 }

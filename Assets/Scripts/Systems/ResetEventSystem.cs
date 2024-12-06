@@ -17,8 +17,8 @@ partial struct ResetEventSystem : ISystem
 [BurstCompile]
 public partial struct ResetEventJob : IJobEntity
 {
-    public void Execute(ref ShootWeapon shoot)
+    public void Execute(ref AttackIfInRange shoot)
     {
-        shoot.onShootEvent.isTriggered = false;
+        shoot.onAttackEvent.attackTriggered = false;
     }
 }

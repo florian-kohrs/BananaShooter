@@ -50,7 +50,7 @@ partial struct FindTargetSystem : ISystem
 }
 
 
-[WithPresent(typeof(AttackClosest))]
+[WithPresent(typeof(TargetClosest))]
 [BurstCompile]
 public partial struct FindClosestEnemyWithinRange : IJobEntity
 {

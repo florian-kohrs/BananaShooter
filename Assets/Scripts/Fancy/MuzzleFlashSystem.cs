@@ -6,14 +6,14 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
-[UpdateAfter(typeof(ShootSystem))]
+[UpdateAfter(typeof(AttackIfInRangeSystem))]
 partial struct MuzzleFlashSystem : ISystem
 {
 
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        ComponentLookup<ShootWeapon> w = SystemAPI.GetComponentLookup<ShootWeapon>(true);
+        ComponentLookup<AttackIfInRange> w = SystemAPI.GetComponentLookup<AttackIfInRange>(true);
         float elapsed = (float)SystemAPI.Time.ElapsedTime;
         MuzzleFlashJob job = new MuzzleFlashJob { elapsed = elapsed, weaponLookup = w };
         job.ScheduleParallel();
@@ -30,11 +30,11 @@ public partial struct MuzzleFlashJob : IJobEntity
 
     [ReadOnly]
     [NativeDisableParallelForRestriction]
-    public ComponentLookup<ShootWeapon> weaponLookup;
+    public ComponentLookup<AttackIfInRange> weaponLookup;
 
     public void Execute(ref LocalTransform transform, in Parent p, ref Muzzle muzzle)
     {
-        if (weaponLookup[p.Value].onShootEvent.isTriggered)
+        if (weaponLookup[p.Value].onAttackEvent.attackTriggered)
             muzzle.startTime = elapsed;
 
         float t = 1 - math.clamp((muzzle.startTime + muzzle.timeToVanish - elapsed) / muzzle.timeToVanish, 0.0f, 1.0f);
