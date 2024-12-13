@@ -37,10 +37,3 @@ public struct SpawnReferences : IComponentData
     public Entity appleEnemyPrefab;
     public Entity bulletPrefab;
 }
-
-
-public struct Loot
-{
-    public Entity prefab;
-    public float probability;
-}

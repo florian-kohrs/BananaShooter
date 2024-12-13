@@ -1,5 +1,4 @@
 using Unity.Burst;
-using Unity.Collections;
 using Unity.Entities;
 
 [UpdateAfter(typeof(FindCloseEntitiesSystem))]
@@ -18,8 +17,9 @@ partial struct ApplyAoeDamageSystem : ISystem
         };
         job.Schedule();
     }
-
 }
+
+
 public partial struct AoeDamageJob : IJobEntity
 {
     public float elapsed;

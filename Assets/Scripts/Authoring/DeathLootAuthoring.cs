@@ -8,14 +8,18 @@ using UnityEngine;
 class DeathLootAuthoring : MonoBehaviour
 {
 
-    public int referenceIndex;
+    public Rarity rarityDrops;
+    public float dropMultiplier;
 
     class DeathLootAuthoringBaker : Baker<DeathLootAuthoring>
     {
         public override void Bake(DeathLootAuthoring authoring)
         {
             Entity e = GetEntity(TransformUsageFlags.Dynamic);
-            AddComponent(e, new LootReference { referenceIndex = authoring.referenceIndex });
+            AddComponent(e, new LootReference { 
+                rarityDrops = authoring.rarityDrops, 
+                dropMultiplier=authoring.dropMultiplier 
+            });
         }
     }
 
@@ -23,5 +27,6 @@ class DeathLootAuthoring : MonoBehaviour
 
 public struct LootReference : IComponentData
 {
-    public int referenceIndex;
+    public float dropMultiplier;
+    public Rarity rarityDrops;
 }
